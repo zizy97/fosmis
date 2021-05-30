@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:fosmis/model/newsdata.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,7 +9,7 @@ class APIManager {
     // ignore: avoid_init_to_null
     var newsmodel = null;
     try {
-      var url = Uri.parse("http://14444707c61f.ngrok.io/newsdata");
+      var url = Uri.parse("https://fosmisapi.herokuapp.com/newsdata");
       var response = await client.get(url);
       print(response.statusCode);
       if (response.statusCode == 200) {
