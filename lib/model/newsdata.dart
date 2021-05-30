@@ -29,26 +29,49 @@ class NewsDatum {
   NewsDatum({
     this.content,
     this.date,
+    this.description,
     this.id,
-    this.source,
+    this.path,
   });
 
   String content;
   String date;
-  int id;
-  String source;
+  String description;
+  String id;
+  Path path;
 
   factory NewsDatum.fromJson(Map<String, dynamic> json) => NewsDatum(
         content: json["CONTENT"],
         date: json["DATE"],
+        description: json["DESCRIPTION"],
         id: json["ID"],
-        source: json["Source"],
+        path: pathValues.map[json["PATH"]],
       );
 
   Map<String, dynamic> toJson() => {
         "CONTENT": content,
         "DATE": date,
+        "DESCRIPTION": description,
         "ID": id,
-        "Source": source,
+        "PATH": pathValues.reverse[path],
       };
+}
+
+enum Path { EMPTY, FILE_PATH_URL }
+
+final pathValues =
+    EnumValues({"": Path.EMPTY, "file-path-url": Path.FILE_PATH_URL});
+
+class EnumValues<T> {
+  Map<String, T> map;
+  Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    if (reverseMap == null) {
+      reverseMap = map.map((k, v) => new MapEntry(v, k));
+    }
+    return reverseMap;
+  }
 }
