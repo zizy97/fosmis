@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
                     return Container(
                         height: 100.0,
                         color: Colors.purple.shade400,
-                        child: createCard(notification[index]));
+                        child: createCard(notification[index], context));
                   },
                 );
               } else {
