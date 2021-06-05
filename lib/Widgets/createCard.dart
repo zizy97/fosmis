@@ -1,16 +1,11 @@
 // import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:fosmis/model/newsdata.dart';
-import 'package:intl/intl.dart';
 // import 'package:fosmis/pages/dataview.dart';
 // import 'package:fosmis/pages/home.dart';
 
 Widget createCard(
     NewsDatum newsdata, BuildContext context, VoidCallback opencontainer) {
-  //DateTime date = DateTime.parse(newsdata.date);
-  // DateFormat df = DateFormat('dd-MM-yyyy hh:mm');
-  // String f_date = df.format(date);
-
   return GestureDetector(
     onTap: opencontainer,
     child: Card(
