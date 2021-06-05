@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fosmis/pages/sample.dart';
+import 'package:fosmis/practice/sample.dart';
 import 'pages/home.dart';
 
 void main() {
