@@ -27,51 +27,39 @@ class NewsData {
 
 class NewsDatum {
   NewsDatum({
-    this.content,
     this.date,
     this.description,
     this.id,
-    this.path,
+    this.recent,
+    this.source,
+    this.title,
   });
 
-  String content;
   String date;
   String description;
-  String id;
-  Path path;
+  int id;
+  bool recent;
+  List<String> source;
+  String title;
 
   factory NewsDatum.fromJson(Map<String, dynamic> json) => NewsDatum(
-        content: json["CONTENT"],
         date: json["DATE"],
         description: json["DESCRIPTION"],
         id: json["ID"],
-        path: pathValues.map[json["PATH"]],
+        recent: json["RECENT"],
+        source: json["SOURCE"] == null
+            ? null
+            : List<String>.from(json["SOURCE"].map((x) => x)),
+        title: json["TITLE"],
       );
 
   Map<String, dynamic> toJson() => {
-        "CONTENT": content,
         "DATE": date,
         "DESCRIPTION": description,
         "ID": id,
-        "PATH": pathValues.reverse[path],
+        "RECENT": recent,
+        "SOURCE":
+            source == null ? null : List<dynamic>.from(source.map((x) => x)),
+        "TITLE": title,
       };
-}
-
-enum Path { EMPTY, FILE_PATH_URL }
-
-final pathValues =
-    EnumValues({"": Path.EMPTY, "file-path-url": Path.FILE_PATH_URL});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
-    }
-    return reverseMap;
-  }
 }

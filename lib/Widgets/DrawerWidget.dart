@@ -8,7 +8,7 @@ Drawer build_drawer(String title) {
       padding: EdgeInsets.zero,
       children: <Widget>[
         Container(
-          height: 110.0,
+          height: 130,
           child: DrawerHeader(
             decoration: BoxDecoration(),
             child: Row(

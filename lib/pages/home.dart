@@ -1,8 +1,10 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:fosmis/Services/apimanger.dart';
 import 'package:fosmis/Widgets/DrawerWidget.dart';
 import 'package:fosmis/Widgets/createCard.dart';
 import 'package:fosmis/model/newsdata.dart';
+import 'package:fosmis/pages/dataview.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -32,16 +34,18 @@ class _HomeState extends State<Home> {
             future: _newsModel,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+                var notification = snapshot.data.newsData;
                 return ListView.builder(
-                  itemCount: snapshot.data.newsData.length,
-                  itemBuilder: (context, index) {
-                    var notification = snapshot.data.newsData;
-                    return Container(
-                        height: 100.0,
-                        color: Colors.purple.shade400,
-                        child: createCard(notification[index], context));
-                  },
-                );
+                    itemCount: snapshot.data.newsData.length,
+                    itemBuilder: (context, index) => OpenContainer(
+                          transitionDuration: Duration(seconds: 1),
+                          closedBuilder: (context,
+                                  VoidCallback opencontainer) =>
+                              createCard(
+                                  notification[index], context, opencontainer),
+                          openBuilder: (context, _) =>
+                              DataView(notification[index]),
+                        ));
               } else {
                 return Center(child: CircularProgressIndicator());
               }
