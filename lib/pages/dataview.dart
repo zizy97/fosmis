@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:fosmis/Widgets/DrawerWidget.dart';
+import 'package:fosmis/Widgets/modifyDescription.dart';
 import 'package:fosmis/model/newsdata.dart';
 
 // ignore: must_be_immutable
@@ -21,14 +22,14 @@ class DataView extends StatelessWidget {
       count++;
     }
     if (list != null) {
-      if (list[0] == "") {
+      if (list[0] == "" || heading == null) {
         this.heading = newsdata.title;
       } else {
         this.heading = list[0];
       }
 
       list.removeAt(0);
-      this.description = modifyDesc(list);
+      this.description = modifyDesc(list, heading);
       this.desc = list.join("\n");
     }
   }
@@ -66,49 +67,4 @@ class DataView extends StatelessWidget {
       drawer: build_drawer("News Feed"),
     );
   }
-
-  List<Widget> modifyDesc(List<String> list) {
-    var urlPattern =
-        r"(https?|ftp)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?";
-    var reg = RegExp(urlPattern, caseSensitive: false);
-    List<Widget> data = [];
-    data.add(Container(
-        padding:
-            EdgeInsets.only(left: 20.0, top: 20.0, bottom: 20.0, right: 20),
-        child: Text(heading != null ? heading : title,
-            style: TextStyle(
-                fontSize: 17.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.red.shade400))));
-    for (var row in list) {
-      print("Row " + row);
-      var url = reg.allMatches(row);
-      if (url != null) {
-        var interdata = row.split(reg);
-        print(interdata);
-        data.add(Text(interdata[0]));
-        //data.add(Text(interdata[1]));
-      } else {
-        data.add(Text(row));
-      }
-    }
-    return data;
-  }
 }
-// children: [
-//                   Container(
-//                       padding: EdgeInsets.only(
-//                           left: 20.0, top: 20.0, bottom: 20.0, right: 20),
-//                       child: Text(heading != null ? heading : title,
-//                           style: TextStyle(
-//                               fontSize: 17.0,
-//                               fontWeight: FontWeight.bold,
-//                               color: Colors.red.shade400))),
-//                   Container(
-//                       padding:
-//                           EdgeInsets.only(left: 18.0, bottom: 20.0, right: 10),
-//                       child: Text(
-//                         desc != null ? desc : "No descrition",
-//                         style: TextStyle(fontSize: 16.0),
-//                       ))
-//                 ],
