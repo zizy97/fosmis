@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
-import 'package:fosmis/Widgets/DrawerWidget.dart';
+import 'package:fosmis/Widgets/drawerWidget.dart';
 import 'package:fosmis/Widgets/modifyDescription.dart';
 import 'package:fosmis/model/newsdata.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-//import 'package:fosmis/practice/sample.dart';
-import 'pages/home.dart';
+import 'package:fosmis/pages/home.dart';
+import 'package:fosmis/pages/login.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,9 +14,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'fosmis',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple, //backgroundColor: Colors.purple.shade300,
       ),
-      home: Home(),
+      home: Login(),
+      routes: <String, WidgetBuilder>{
+        '/home': (context) => Home(),
+      },
     );
   }
 }

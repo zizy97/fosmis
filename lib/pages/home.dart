@@ -1,7 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:fosmis/Services/apimanger.dart';
-import 'package:fosmis/Widgets/DrawerWidget.dart';
+import 'package:fosmis/Widgets/drawerWidget.dart';
 import 'package:fosmis/Widgets/createCard.dart';
 import 'package:fosmis/model/newsdata.dart';
 import 'package:fosmis/pages/dataview.dart';
