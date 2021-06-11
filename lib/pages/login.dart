@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:fosmis/Widgets/drawerWidget.dart';
 import 'package:fosmis/pages/home.dart';
@@ -13,6 +12,7 @@ class _LoginState extends State<Login> {
   final GlobalKey<FormState> _fkey = GlobalKey<FormState>();
   Future<List> res;
   String _user, _password = '';
+  List data;
   @override
   Widget build(BuildContext context) {
     String state = 'FOSMIS Notify';
@@ -80,12 +80,10 @@ class _LoginState extends State<Login> {
                               setState(() {
                                 res =
                                     LoginFOSMIS().loginFosmis(_user, _password);
+                                res.then((value) => data = value);
                               });
                             }
                           }, //Create OnPress Method
-                        ),
-                        SizedBox(
-                          height: 100,
                         ),
                       ],
                     ),
@@ -110,6 +108,7 @@ class _LoginState extends State<Login> {
                                           builder: (context) => Home(),
                                         ));
                                   });
+                                  return Container();
                                 }
                               } else {
                                 return CircularProgressIndicator();
