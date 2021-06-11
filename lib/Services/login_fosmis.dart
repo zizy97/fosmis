@@ -19,9 +19,9 @@ class LoginFOSMIS {
           caseSensitive: false);
       Iterable<RegExpMatch> error = regex.allMatches(body);
       var flag = false;
+      // ignore: unused_local_variable
       for (Match m in error) {
         flag = true;
-        String match = m[0];
       }
 
       if (error != null && flag) {

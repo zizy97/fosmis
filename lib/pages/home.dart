@@ -5,6 +5,8 @@ import 'package:fosmis/Widgets/drawerWidget.dart';
 import 'package:fosmis/Widgets/createCard.dart';
 import 'package:fosmis/model/newsdata.dart';
 import 'package:fosmis/pages/dataview.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:get/get.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -22,36 +24,24 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
-  Future<bool> _onbackPressed() {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Do you want to exit or logout?'),
-        actions: <Widget>[
-          ElevatedButton(
-              onPressed: () =>
-                  Navigator.pushReplacementNamed(context, "/login"),
-              child: Text('Logout')),
-          ElevatedButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: Text('Exit'))
-        ],
-      ),
-    );
-  }
-
+  final userdata = GetStorage();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => _onbackPressed(),
       child: Scaffold(
           appBar: AppBar(
-            title: Text("FOSMIS NEWS UPDATE"),
+            title: Text("FOSMIS Notify"),
             backgroundColor: Colors.purple.shade300,
             actions: [
               IconButton(
                   icon: Icon(Icons.logout),
-                  onPressed: () => Navigator.of(context).pushNamed('/login'))
+                  onPressed: () {
+                    userdata.write('isLogged', false);
+                    userdata.remove('uname');
+                    userdata.remove('upwd');
+                    Get.offAllNamed('/login');
+                  })
             ],
           ),
           body: Container(
@@ -78,6 +68,28 @@ class _HomeState extends State<Home> {
             ),
           ),
           drawer: build_drawer("NEWS FEED")),
+    );
+  }
+
+  Future<bool> _onbackPressed() {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Do you want to exit or logout?'),
+        actions: <Widget>[
+          ElevatedButton(
+              onPressed: () {
+                userdata.write('isLogged', false);
+                userdata.remove('uname');
+                userdata.remove('upwd');
+                Get.offAllNamed('/login');
+              },
+              child: Text('Logout')),
+          ElevatedButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text('Exit'))
+        ],
+      ),
     );
   }
 }

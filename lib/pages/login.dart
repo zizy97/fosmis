@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:fosmis/Widgets/drawerWidget.dart';
 import 'package:fosmis/pages/home.dart';
 import 'package:fosmis/Services/login_fosmis.dart';
+import 'package:get_storage/get_storage.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final GlobalKey<FormState> _fkey = GlobalKey<FormState>();
   Future<List> res;
-  String _user, _password = '';
+  String _user, _password;
   List data;
 
   Future<bool> _onbackPressed() {
@@ -36,6 +37,9 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     String state = 'FOSMIS Notify';
+    final userdata = GetStorage();
+    TextEditingController usercontrol = TextEditingController();
+    TextEditingController passcontrol = TextEditingController();
     return Scaffold(
         appBar: AppBar(
           title: Text(state),
@@ -54,6 +58,7 @@ class _LoginState extends State<Login> {
                       height: 100,
                     ),
                     TextFormField(
+                      controller: usercontrol,
                       decoration: const InputDecoration(
                           icon: const Icon(Icons.person),
                           hintText: 'Enter User name',
@@ -64,12 +69,9 @@ class _LoginState extends State<Login> {
                         }
                         return null;
                       },
-                      onSaved: (user) {
-                        _user = user;
-                        print(_user);
-                      },
                     ),
                     TextFormField(
+                      controller: passcontrol,
                       decoration: const InputDecoration(
                         icon: const Icon(Icons.lock),
                         hintText: 'Enter a password',
@@ -82,10 +84,6 @@ class _LoginState extends State<Login> {
                         }
                         return null;
                       },
-                      onSaved: (pass) {
-                        _password = pass;
-                        print(_password);
-                      },
                     ),
                     SizedBox(
                       height: 50,
@@ -97,7 +95,8 @@ class _LoginState extends State<Login> {
                           child: Text('Login'),
                           onPressed: () {
                             if (_fkey.currentState.validate()) {
-                              _fkey.currentState.save();
+                              _user = usercontrol.text;
+                              _password = passcontrol.text;
                               setState(() {
                                 res =
                                     LoginFOSMIS().loginFosmis(_user, _password);
@@ -111,7 +110,6 @@ class _LoginState extends State<Login> {
                     res != null
                         ? FutureBuilder(
                             future: res,
-                            // ignore: missing_return
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 if (!snapshot.data[1]) {
@@ -121,6 +119,9 @@ class _LoginState extends State<Login> {
                                         TextStyle(color: Colors.red.shade600),
                                   );
                                 } else {
+                                  userdata.write('isLogged', true);
+                                  userdata.write('uname', _user);
+                                  userdata.write('upwd', _password);
                                   WidgetsBinding.instance
                                       .addPostFrameCallback((_) {
                                     Navigator.pushReplacement(
