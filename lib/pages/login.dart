@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fosmis/Widgets/drawerWidget.dart';
 import 'package:fosmis/pages/home.dart';
-import 'package:fosmis/practice/login_fosmis.dart';
+import 'package:fosmis/Services/login_fosmis.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -13,6 +14,25 @@ class _LoginState extends State<Login> {
   Future<List> res;
   String _user, _password = '';
   List data;
+
+  Future<bool> _onbackPressed() {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Do you want to exit?'),
+        actions: <Widget>[
+          ElevatedButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text('No')),
+          ElevatedButton(
+              onPressed: () =>
+                  SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
+              child: Text('Exit'))
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     String state = 'FOSMIS Notify';
@@ -25,6 +45,7 @@ class _LoginState extends State<Login> {
           child: Container(
             margin: EdgeInsets.all(20.0),
             child: Form(
+                onWillPop: () => _onbackPressed(),
                 key: _fkey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
