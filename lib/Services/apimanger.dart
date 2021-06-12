@@ -4,12 +4,12 @@ import 'package:http/http.dart' as http;
 
 class APIManager {
   APIManager();
-  Future<NewsData> getNotify() async {
+  Future<NewsData> getNotify(String urll) async {
     var client = http.Client();
     // ignore: avoid_init_to_null
     var newsmodel = null;
     try {
-      var url = Uri.parse("https://fosmisapi.herokuapp.com/newsdata");
+      var url = Uri.parse(urll);
       var response = await client.get(url);
       print(response.statusCode);
       if (response.statusCode == 200) {

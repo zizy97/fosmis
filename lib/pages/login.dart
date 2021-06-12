@@ -15,6 +15,9 @@ class _LoginState extends State<Login> {
   Future<List> res;
   String _user, _password;
   List data;
+  bool _obscureText = true;
+  TextEditingController usercontrol = TextEditingController();
+  TextEditingController passcontrol = TextEditingController();
 
   Future<bool> _onbackPressed() {
     return showDialog(
@@ -38,8 +41,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     String state = 'FOSMIS Notify';
     final userdata = GetStorage();
-    TextEditingController usercontrol = TextEditingController();
-    TextEditingController passcontrol = TextEditingController();
+
     return Scaffold(
         appBar: AppBar(
           title: Text(state),
@@ -59,25 +61,33 @@ class _LoginState extends State<Login> {
                     ),
                     TextFormField(
                       controller: usercontrol,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                           icon: const Icon(Icons.person),
                           hintText: 'Enter User name',
-                          labelText: 'User Name'),
+                          labelText: 'User Name',
+                          suffixIcon: IconButton(
+                              icon: Icon(Icons.help), onPressed: () {})),
                       validator: (user) {
                         if (user.isEmpty) {
                           return 'User name Cannot Empty';
                         }
                         return null;
                       },
+                      onChanged: (value) {
+                        _user = value;
+                      },
                     ),
                     TextFormField(
                       controller: passcontrol,
-                      decoration: const InputDecoration(
-                        icon: const Icon(Icons.lock),
-                        hintText: 'Enter a password',
-                        labelText: 'Password',
-                      ),
-                      obscureText: true,
+                      decoration: InputDecoration(
+                          icon: const Icon(Icons.lock),
+                          hintText: 'Enter a password',
+                          labelText: 'Password',
+                          suffixIcon: _seticon()),
+                      obscureText: _obscureText,
+                      onChanged: (value) {
+                        _password = value;
+                      },
                       validator: (pass) {
                         if (pass.isEmpty) {
                           return "Password Cannot Empty";
@@ -91,6 +101,20 @@ class _LoginState extends State<Login> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        ElevatedButton(
+                          child: Text('Reset'),
+                          onPressed: () {
+                            setState(() {
+                              usercontrol.text = '';
+                              _user = '';
+                              _password = '';
+                              passcontrol.text = '';
+                            });
+                          }, //Create OnPress Method
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
                         ElevatedButton(
                           child: Text('Login'),
                           onPressed: () {
@@ -143,5 +167,19 @@ class _LoginState extends State<Login> {
           ),
         ),
         drawer: build_drawer(state));
+  }
+
+  IconButton _seticon() {
+    return IconButton(
+        icon: _obscureText ? Icon(Icons.lock) : Icon(Icons.remove_red_eye),
+        onPressed: _toggle);
+  }
+
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+      usercontrol.text = _user;
+      passcontrol.text = _password;
+    });
   }
 }
