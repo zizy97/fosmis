@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fosmis/pages/home.dart';
 import 'package:fosmis/pages/login.dart';
 import 'package:fosmis/pages/settings.dart';
+import 'package:fosmis/themeChange.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:get/get.dart';
 
@@ -14,19 +15,24 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'fosmis',
-      theme: ThemeData(
-        fontFamily: "RobotoMono",
-        brightness: Brightness.dark,
-        primarySwatch: Colors.purple, //backgroundColor: Colors.purple.shade300,
-      ),
-      home: SplashScreen(),
-      routes: <String, WidgetBuilder>{
-        '/home': (context) => Home(),
-        '/login': (context) => Login(),
-        '/settings': (context) => SettingsScreen(),
+    return ThemeBuilder(
+      builder: (context, _brightness) {
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'fosmis',
+          theme: ThemeData(
+            fontFamily: "RobotoMono",
+            brightness: _brightness,
+            primarySwatch:
+                Colors.purple, //backgroundColor: Colors.purple.shade300,
+          ),
+          home: SplashScreen(),
+          routes: <String, WidgetBuilder>{
+            '/home': (context) => Home(),
+            '/login': (context) => Login(),
+            '/settings': (context) => SettingScreen(),
+          },
+        );
       },
     );
   }
@@ -52,13 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
-    );
+    return Scaffold();
   }
 
   void checklogging() {

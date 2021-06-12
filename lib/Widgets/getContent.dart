@@ -21,7 +21,7 @@ Container getContent(Future<NewsData> _newsModel) {
                     openBuilder: (context, _) => DataView(notification[index]),
                   ));
         } else {
-          return Center(child: RefreshProgressIndicator());
+          return Center(child: CircularProgressIndicator());
         }
       },
     ),

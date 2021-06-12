@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fosmis/Services/apimanger.dart';
 import 'package:fosmis/Widgets/drawerWidget.dart';
 import 'package:fosmis/Widgets/getContent.dart';
@@ -14,6 +15,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   // ignore: unused_field
   Future<NewsData> _newsModel, _mostrecent;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
     // ignore: todo
@@ -33,6 +35,7 @@ class _HomeState extends State<Home> {
       child: DefaultTabController(
         length: 2,
         child: Scaffold(
+            key: _scaffoldKey,
             appBar: AppBar(
               title: Text("FOSMIS Notify"),
               backgroundColor: Colors.purple.shade300,
@@ -64,24 +67,28 @@ class _HomeState extends State<Home> {
   }
 
   Future<bool> _onbackPressed() {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Do you want to exit or logout?'),
-        actions: <Widget>[
-          ElevatedButton(
-              onPressed: () {
-                userdata.write('isLogged', false);
-                userdata.remove('uname');
-                userdata.remove('upwd');
-                Get.offAllNamed('/login');
-              },
-              child: Text('Logout')),
-          ElevatedButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: Text('Exit'))
-        ],
-      ),
-    );
+    _scaffoldKey.currentState.isDrawerOpen
+        ? Navigator.pop(context)
+        : showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text('Do you want to exit or logout?'),
+              actions: <Widget>[
+                ElevatedButton(
+                    onPressed: () {
+                      userdata.write('isLogged', false);
+                      userdata.remove('uname');
+                      userdata.remove('upwd');
+                      Get.offAllNamed('/login');
+                    },
+                    child: Text('Logout')),
+                ElevatedButton(
+                    onPressed: () => SystemChannels.platform
+                        .invokeMethod('SystemNavigator.pop'),
+                    child: Text('Exit'))
+              ],
+            ),
+          );
+    return null;
   }
 }

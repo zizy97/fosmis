@@ -12,6 +12,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final GlobalKey<FormState> _fkey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Future<List> res;
   String _user, _password;
   List data;
@@ -20,21 +21,24 @@ class _LoginState extends State<Login> {
   TextEditingController passcontrol = TextEditingController();
 
   Future<bool> _onbackPressed() {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Do you want to exit?'),
-        actions: <Widget>[
-          ElevatedButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: Text('No')),
-          ElevatedButton(
-              onPressed: () =>
-                  SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
-              child: Text('Exit'))
-        ],
-      ),
-    );
+    _scaffoldKey.currentState.isDrawerOpen
+        ? Navigator.pop(context)
+        : showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text('Do you want to exit?'),
+              actions: <Widget>[
+                ElevatedButton(
+                    onPressed: () => Navigator.pop(context, false),
+                    child: Text('No')),
+                ElevatedButton(
+                    onPressed: () => SystemChannels.platform
+                        .invokeMethod('SystemNavigator.pop'),
+                    child: Text('Exit'))
+              ],
+            ),
+          );
+    return null;
   }
 
   @override
@@ -43,6 +47,7 @@ class _LoginState extends State<Login> {
     final userdata = GetStorage();
 
     return Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           title: Text(state),
           backgroundColor: Colors.purple.shade300,
@@ -157,7 +162,7 @@ class _LoginState extends State<Login> {
                                   return Container();
                                 }
                               } else {
-                                return CircularProgressIndicator();
+                                return LinearProgressIndicator();
                               }
                             },
                           )
@@ -166,7 +171,7 @@ class _LoginState extends State<Login> {
                 )),
           ),
         ),
-        drawer: build_drawer(state));
+        drawer: build_drawer(state, context: context));
   }
 
   IconButton _seticon() {

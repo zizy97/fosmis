@@ -12,28 +12,21 @@ Drawer build_drawer(String title, {BuildContext context}) {
           padding: EdgeInsets.only(left: 15),
           height: 100,
           child: DrawerHeader(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("images/bell.png"),
-                    fit: BoxFit.fitHeight,
-                    alignment: Alignment.centerLeft)),
-            child: Column(
-              children: [
-                Text(title,
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                Text('version:1.0',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic))
-              ],
-            ),
-          ),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("images/bell.png"),
+                      fit: BoxFit.fitHeight,
+                      alignment: Alignment.centerLeft)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [Text("NEWS FEED")],
+              )),
         ),
         ListTile(
           title: Text('Settings'),
           leading: Icon(Icons.settings),
           onTap: () {
+            Navigator.pop(context);
             Navigator.of(context).pushNamed('/settings');
           },
         ),
