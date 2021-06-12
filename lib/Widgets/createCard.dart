@@ -13,7 +13,6 @@ Widget createCard(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
-      color: Colors.white,
       elevation: 10,
       child: Container(
         child: Column(
@@ -26,7 +25,6 @@ Widget createCard(
                   style: TextStyle(fontWeight: FontWeight.bold)),
               subtitle: Text(
                 newsdata.date,
-                style: TextStyle(color: Colors.black.withOpacity(0.6)),
               ),
             ),
           ],

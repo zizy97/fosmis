@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
     _newsModel =
         APIManager().getNotify("https://fosmisapi.herokuapp.com/newsdata");
     _mostrecent =
-        APIManager().getNotify("https://fosmisapi.herokuapp.com/newsdata");
+        APIManager().getNotify("https://fosmisapi.herokuapp.com/recent");
     super.initState();
   }
 
@@ -48,9 +48,9 @@ class _HomeState extends State<Home> {
               ],
               bottom: TabBar(
                 tabs: [
-                  Tab(icon: Icon(Icons.notification_important)),
+                  Tab(icon: Icon(Icons.notifications_active)),
                   Tab(
-                    icon: Icon(Icons.notifications_active),
+                    icon: Icon(Icons.notifications),
                   )
                 ],
               ),
@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
             body: TabBarView(
               children: [getContent(_mostrecent), getContent(_newsModel)],
             ),
-            drawer: build_drawer("NEWS FEED")),
+            drawer: build_drawer("NEWS FEED", context: context)),
       ),
     );
   }
