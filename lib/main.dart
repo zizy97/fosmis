@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fosmis/pages/home.dart';
 import 'package:fosmis/pages/login.dart';
 import 'package:fosmis/pages/settings.dart';
@@ -10,6 +12,10 @@ import 'package:get_storage/get_storage.dart';
 import 'package:get/get.dart';
 
 void main() async {
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('google_fonts/OFL.txt');
+    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+  });
   await GetStorage.init();
   runApp(MyApp());
 }
