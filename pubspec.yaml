@@ -30,3 +30,5 @@ flutter:
 
   assets:
     - images/bell.png
+    - images/logo.png
+    - images/download.png

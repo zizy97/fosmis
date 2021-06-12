@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:fosmis/pages/home.dart';
 import 'package:fosmis/pages/login.dart';
@@ -51,14 +54,43 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     userdate.writeIfNull('isLogged', false);
-    Future.delayed(Duration.zero, () async {
-      checklogging();
-    });
+    Timer(Duration(seconds: 2), checklogging);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 100),
+                height: 125.0,
+                child: Image(
+                  image: AssetImage("images/logo.png"),
+                ),
+              ),
+              SizedBox(
+                height: 200,
+              ),
+              Container(
+                child: Text(
+                  "Powered By FOSMIS API",
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold),
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   void checklogging() {

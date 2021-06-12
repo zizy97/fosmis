@@ -32,6 +32,8 @@
 /build/
 lib/practice
 fonts/
+ios/Runner/
+android/app/
 
 # Web related
 lib/generated_plugin_registrant.dart

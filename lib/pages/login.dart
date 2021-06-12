@@ -61,8 +61,26 @@ class _LoginState extends State<Login> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: Colors.purple, width: 2),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                color: Colors.purple.shade300),
+                            padding: EdgeInsets.all(15),
+                            // color: Colors.purple.shade300,
+                            child: Text(
+                              "Sign in to FOSMIS",
+                              style: TextStyle(fontSize: 25.0),
+                            ))
+                      ],
+                    ),
                     SizedBox(
-                      height: 100,
+                      height: 50,
                     ),
                     TextFormField(
                       controller: usercontrol,
