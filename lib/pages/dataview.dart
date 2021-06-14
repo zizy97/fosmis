@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
-import 'package:fosmis/Widgets/drawerWidget.dart';
 import 'package:fosmis/Widgets/modifyDescription.dart';
 import 'package:fosmis/model/newsdata.dart';
 
@@ -38,12 +37,7 @@ class DataView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("FOSMIS NEWS UPDATE"),
-        backgroundColor: Colors.purple.shade300,
-        actions: [
-          IconButton(
-              icon: Icon(Icons.keyboard_return),
-              onPressed: () => Navigator.pop(context))
-        ],
+        backgroundColor: Colors.purple.withOpacity(0.5),
       ),
       body: link == null
           ? SingleChildScrollView(
@@ -64,7 +58,6 @@ class DataView extends StatelessWidget {
                     Center(child: Text(error.toString())),
               ),
             ),
-      drawer: build_drawer("News Feed"),
     );
   }
 }

@@ -7,12 +7,14 @@ import 'package:fosmis/pages/dataview.dart';
 
 Container getContent(Future<NewsData> _newsModel) {
   return Container(
+    padding: EdgeInsets.all(8.0),
     child: FutureBuilder<NewsData>(
       future: _newsModel,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           var notification = snapshot.data.newsData;
-          return ListView.builder(
+          return ListView.separated(
+              separatorBuilder: (context,index) => SizedBox(height: 8.0),
               itemCount: snapshot.data.newsData.length,
               itemBuilder: (context, index) => OpenContainer(
                     transitionDuration: Duration(seconds: 1),

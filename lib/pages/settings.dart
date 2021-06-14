@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fosmis/Widgets/drawerWidget.dart';
-import 'package:fosmis/themeChange.dart';
+//import 'package:fosmis/Widgets/drawerWidget.dart';
+import 'package:fosmis/Services/themeChange.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key key}) : super(key: key);
@@ -15,12 +15,12 @@ class _SettingScreenState extends State<SettingScreen> {
     bool isDarked = ThemeBuilder.Of(context).isDarked();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.purple.shade300,
+        backgroundColor: Colors.purple.withOpacity(0.5),
         title: Text("Settings"),
       ),
       body: Container(
         padding: EdgeInsets.only(left: 20),
-        alignment: Alignment.center,
+        alignment: Alignment.topCenter,
         child: ListTile(
             leading: Icon(Icons.colorize_sharp),
             title: Text(
@@ -37,7 +37,7 @@ class _SettingScreenState extends State<SettingScreen> {
               },
             )),
       ),
-      drawer: build_drawer("NEWS FEED"),
+      // drawer: build_drawer("NEWS FEED"),
     );
   }
 }

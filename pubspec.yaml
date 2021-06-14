@@ -14,12 +14,16 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   animations: ^2.0.0
-  flutter_cached_pdfview: ^0.3.5
+  flutter_cached_pdfview: any
   http: any
   url_launcher: any
   get_storage: any
   get: any
   google_fonts: any
+  flutter_custom_clippers: ^2.0.0
+  firebase_core: ^1.3.0
+  firebase_messaging: ^10.0.2
+  flutter_local_notifications: ^6.0.0
 
 
 dev_dependencies:

@@ -4,32 +4,31 @@ import 'package:google_fonts/google_fonts.dart';
 
 Widget createCard(
     NewsDatum newsdata, BuildContext context, VoidCallback opencontainer) {
-  final TextStyle headline4 = Theme.of(context).textTheme.headline4;
   return GestureDetector(
     onTap: opencontainer,
-    child: Card(
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      elevation: 10,
-      child: Container(
-        child: Column(
+    child: Ink(
+      decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(4.0)),
+      child: ListTile(
+        leading: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ListTile(
-              leading: Icon(newsdata.recent
-                  ? Icons.notifications_active_outlined
-                  : Icons.circle_notifications),
-              title: Text(newsdata.title,
-                  style: GoogleFonts.lato(
-                      fontStyle: FontStyle.italic,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold)),
-              subtitle: Text(
-                newsdata.date,
-              ),
-            ),
+            Icon(newsdata.recent
+                ? Icons.notifications_active_outlined
+                : Icons.circle_notifications),
           ],
+        ),
+        title: Text(newsdata.title,
+            maxLines: 2,
+            style: GoogleFonts.lato(
+                color: Colors.black,
+                fontStyle: FontStyle.italic,
+                fontSize: 18,
+                fontWeight: FontWeight.bold)),
+        subtitle: Text(
+          newsdata.date,
+          style: TextStyle(color: Colors.black.withOpacity(.8)),
         ),
       ),
     ),
