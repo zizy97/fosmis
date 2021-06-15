@@ -14,7 +14,7 @@ Container getContent(Future<NewsData> _newsModel) {
         if (snapshot.hasData) {
           var notification = snapshot.data.newsData;
           return ListView.separated(
-              separatorBuilder: (context,index) => SizedBox(height: 8.0),
+              separatorBuilder: (context, index) => SizedBox(height: 8.0),
               itemCount: snapshot.data.newsData.length,
               itemBuilder: (context, index) => OpenContainer(
                     transitionDuration: Duration(seconds: 1),
