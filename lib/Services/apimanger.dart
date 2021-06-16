@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:fosmis/model/newsdata.dart';
+import 'package:fosmis/model/newsdata(modified).dart';
 import 'package:http/http.dart' as http;
 
 class APIManager {

@@ -4,7 +4,7 @@ import 'package:fosmis/Services/apimanger.dart';
 import 'package:fosmis/Services/notificationhandle.dart';
 import 'package:fosmis/Widgets/drawerWidget.dart';
 import 'package:fosmis/Widgets/getContent.dart';
-import 'package:fosmis/model/newsdata.dart';
+import 'package:fosmis/model/newsdata(modified).dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:get/get.dart';
 
@@ -22,10 +22,10 @@ class _HomeState extends State<Home> {
   void initState() {
     // ignore: todo
     // TODO: implement initState
-    _newsModel =
-        APIManager().getNotify("https://fosmisapi.herokuapp.com/newsdata");
-    _mostrecent =
-        APIManager().getNotify("https://fosmisapi.herokuapp.com/recent");
+    _newsModel = APIManager().getNotify(
+        "https://us-central1-flutterapp-7cd19.cloudfunctions.net/getAllNewsdata");
+    _mostrecent = APIManager().getNotify(
+        "https://us-central1-flutterapp-7cd19.cloudfunctions.net/getRecentNewsdata");
     super.initState();
   }
 

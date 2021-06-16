@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:fosmis/Widgets/modifyDescription.dart';
-import 'package:fosmis/model/newsdata.dart';
+import 'package:fosmis/model/newsdata(modified).dart';
 
 // ignore: must_be_immutable
 class DataView extends StatelessWidget {
@@ -11,9 +11,9 @@ class DataView extends StatelessWidget {
   String link;
   List<Widget> description;
 
-  DataView(NewsDatum newsdata) {
+  DataView(Newsdatum newsdata) {
     title = newsdata.title;
-    newsdata.source != null ? link = newsdata.source[1] : link = null;
+    link = newsdata.source[0] != "" ? newsdata.source[1] : link = null;
     var list = newsdata.description.split("\n");
     int count = 0;
     for (var l in list) {

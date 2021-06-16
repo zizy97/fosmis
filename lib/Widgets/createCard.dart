@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:fosmis/model/newsdata.dart';
+import 'package:fosmis/model/newsdata(modified).dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Widget createCard(
-    NewsDatum newsdata, BuildContext context, VoidCallback opencontainer) {
+    Newsdatum newsdata, BuildContext context, VoidCallback opencontainer) {
   return GestureDetector(
     onTap: opencontainer,
     child: Ink(
@@ -27,7 +27,7 @@ Widget createCard(
                 fontSize: 18,
                 fontWeight: FontWeight.bold)),
         subtitle: Text(
-          newsdata.date,
+          newsdata.date.toString(),
           style: TextStyle(color: Colors.black.withOpacity(.8)),
         ),
       ),

@@ -2,7 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fosmis/Widgets/createCard.dart';
-import 'package:fosmis/model/newsdata.dart';
+import 'package:fosmis/model/newsdata(modified).dart';
 import 'package:fosmis/pages/dataview.dart';
 
 Container getContent(Future<NewsData> _newsModel) {
@@ -12,10 +12,13 @@ Container getContent(Future<NewsData> _newsModel) {
       future: _newsModel,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          var notification = snapshot.data.newsData;
+          var notification = snapshot.data.newsdata;
+          notification
+              .sort((a, b) => a.date.compareTo(b.date)); //soreted newsdata
+          notification = notification.reversed.toList();
           return ListView.separated(
               separatorBuilder: (context, index) => SizedBox(height: 8.0),
-              itemCount: snapshot.data.newsData.length,
+              itemCount: snapshot.data.newsdata.length,
               itemBuilder: (context, index) => OpenContainer(
                     transitionDuration: Duration(seconds: 1),
                     closedBuilder: (context, VoidCallback opencontainer) =>
