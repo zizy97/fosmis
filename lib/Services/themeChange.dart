@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
 class ThemeBuilder extends StatefulWidget {
   final Widget Function(BuildContext context, Brightness _brightness) builder;
@@ -12,6 +13,8 @@ class ThemeBuilder extends StatefulWidget {
 }
 
 class _ThemeBuilderState extends State<ThemeBuilder> {
+  final userdate = GetStorage();
+
   Brightness _brightness;
   @override
   void initState() {
@@ -23,6 +26,7 @@ class _ThemeBuilderState extends State<ThemeBuilder> {
     setState(() {
       _brightness =
           _brightness == Brightness.light ? Brightness.dark : Brightness.light;
+      userdate.write('isdarked', isDarked());
     });
   }
 
@@ -33,6 +37,10 @@ class _ThemeBuilderState extends State<ThemeBuilder> {
 
   @override
   Widget build(BuildContext context) {
+    bool isdarked = userdate.read('isdarked');
+    if (isdarked != isDarked()) {
+      changeTheme();
+    }
     return widget.builder(context, _brightness);
   }
 }

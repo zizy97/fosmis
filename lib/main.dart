@@ -54,9 +54,11 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
+  final userdate = GetStorage();
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    userdate.writeIfNull('isdarked', false);
     return ThemeBuilder(
       builder: (context, _brightness) {
         return GetMaterialApp(
@@ -93,6 +95,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     userdate.writeIfNull('isLogged', false);
+    userdate.writeIfNull('isdarked', false);
     Timer(Duration(seconds: 2), checklogging);
   }
 
