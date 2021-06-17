@@ -26,8 +26,9 @@ class DataView extends StatelessWidget {
       } else {
         this.heading = list[0];
       }
-
-      list.removeAt(0);
+      if (list.length > 1) {
+        list.removeAt(0);
+      }
       this.description = modifyDesc(list, heading);
       this.desc = list.join("\n");
     }
