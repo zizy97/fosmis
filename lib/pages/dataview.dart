@@ -13,7 +13,7 @@ class DataView extends StatelessWidget {
 
   DataView(Newsdatum newsdata) {
     title = newsdata.title;
-    link = newsdata.source[0] != "" ? newsdata.source[1] : link = null;
+    link = newsdata.source[1] != "" ? newsdata.source[1] : link = null;
     var list = newsdata.description.split("\n");
     int count = 0;
     for (var l in list) {
